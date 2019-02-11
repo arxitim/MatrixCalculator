@@ -2,11 +2,20 @@ class Matrix:
     def __init__(self, value):
         self.value = value
 
+    def __getitem__(self, item):
+        return self.value[item]
+
     def __add__(self, other):
-        return other + self.value
+        for i in range(len(self.value)):
+            for j in range(len(self.value[0])):
+                C[i][j] = (self.value[i][j] + other[i][j])
+        return C
 
     def __sub__(self, other):
-        return self.value - other
+        for i in range(len(self.value)):
+            for j in range(len(self.value[0])):
+                C[i][j] = (self.value[i][j] - other[i][j])
+        return C
 
     def __mul__(self, other):
         return other * self.value
@@ -14,18 +23,14 @@ class Matrix:
     def __truediv__(self, other):
         return self.value // other
 
-    def proverk1(self):
-        self.value += 1
-
-    def proverk2(self):
-        self.proverk1()
-        return self.value
 
 
+A = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+B = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+x, y = map(int, input("Введите размерность матрицы: ").split())
+C = [[0] * y for i in range(x)]
+print(list(C))
 
-A = Matrix(6)
-print(A + 3)
-print(A * 3)
-print(A / 2)
-print(A - 2)
-print(A.proverk2())
+C = A + B
+print('\n'.join(map(str, C)))
+
