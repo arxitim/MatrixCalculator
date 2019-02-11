@@ -6,7 +6,19 @@ class Matrix:
         return self.value[item]
 
     def determinant(self):
-        return 1
+        search = self.value
+        if type(self.value) == int:
+            return self.value
+        else:
+            result = 0
+            for i in search[0]:
+                minor = i
+                algebraic = Matrix(i)
+                result += minor * algebraic.determinant()
+            return result
+
+
+
 
     def __add__(self, other):
         dimension = len(self.value[0])
@@ -53,6 +65,11 @@ while True:
         except ValueError:
             print("\n Ты не справился, попробуй еще раз! \n")
             continue
-        X = Matrix(X)
-        Y = Matrix([[1, 1], [1, 1]])
-        print(X + Y)
+        X = Matrix(X, )
+        print(X.determinant())
+        continue
+
+    if answer == 4:
+        A = Matrix([[1, 1], [1, 1]])
+        B = Matrix([[1, 1], [1, 1]])
+        print(A + B)
