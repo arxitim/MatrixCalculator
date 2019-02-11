@@ -5,17 +5,19 @@ class Matrix:
     def __getitem__(self, item):
         return self.value[item]
 
+    def determinant(self):
+        return 1
+
     def __add__(self, other):
-        for i in range(len(self.value)):
-            for j in range(len(self.value[0])):
-                C[i][j] = (self.value[i][j] + other[i][j])
-        return C
+        dimension = len(self.value[0])
+        result = [[(self.value[i][j] + other[i][j]) for j in range(dimension) ] for i in range(dimension)]
+        return result
 
     def __sub__(self, other):
-        for i in range(len(self.value)):
-            for j in range(len(self.value[0])):
-                C[i][j] = (self.value[i][j] - other[i][j])
-        return C
+        dimension = len(self.value[0])
+        result = [[(self.value[i][j] + other[i][j]) for j in range(dimension)] for i in range(dimension)]
+        return result
+
 
     def __mul__(self, other):
         return other * self.value
@@ -24,13 +26,33 @@ class Matrix:
         return self.value // other
 
 
-
-A = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-B = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-x, y = map(int, input("Введите размерность матрицы: ").split())
-C = [[0] * y for i in range(x)]
-print(list(C))
-
-C = A + B
-print('\n'.join(map(str, C)))
-
+while True:
+    print("""Хэй, чем займемся сегодня, Ферб?
+1) Найдем детерминант матрицы
+2) Найдем матрицу, обратную данной
+3) Транспонируем матрицу
+4) Сложим две матрицы
+5) Вычтем из одной матрицы другую
+6) Умножим матрицу на матрицу
+7) Умножим матрицу на число
+8) Поделим одну матрицу на другую
+9) Ничем""")
+    answer = int(input("Ответ: "))
+    if answer == 1:
+        try:
+            size = int(input("Введите размерность матрицы: "))
+            X = [[0] * size for i in range(size)]
+            print("Построчно введите значения элементов матрицы через пробел (ввел строку, нажал Enter)")
+            for i in range(size):
+                tmp_input = list(map(int, input().split()))
+                if len(tmp_input) == size:
+                    X[i] = tmp_input
+                else:
+                    print("\nТы не справился, попробуй еще раз! \n")
+                    break
+        except ValueError:
+            print("\n Ты не справился, попробуй еще раз! \n")
+            continue
+        X = Matrix(X)
+        Y = Matrix([[1, 1], [1, 1]])
+        print(X + Y)
